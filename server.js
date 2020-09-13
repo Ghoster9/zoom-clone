@@ -31,6 +31,10 @@ io.on("connection", (socket) => {
       //send message to the same room
       io.to(roomId).emit("createMessage", message);
     });
+
+    socket.on("disconnect", () => {
+      socket.to(roomId).broadcast.emit("user-disconnected", userId);
+    });
   });
 });
 
